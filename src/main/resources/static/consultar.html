@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar</title>
+    <style>
+        body{
+            font-family: monospace, sans-serif;
+            margin: 20px;
+        }
+        nav{
+            background-color: #FF0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a{
+            text-decoration: none;
+            color:  #F3F3F3;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #000000
+        }
+
+        th{
+            padding: 1px 30px;
+        }
+    </style>
+</head>
+
+<body>
+<nav>
+    <a href="inserir.html"> Inserir</a>
+    <a href="consultar.html"> Consultar</a>
+    <a href="editar.html"> Editar</a>
+    <a href="deletar.html"> Deletar</a>
+</nav>
+
+<h1>Lista de Alunos</h1>
+
+<button id="btnListar">Carregar Alunos</button>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Curso</th>
+        <th>Disciplina</th>
+        <th>Status</th>
+        <th>Nota 1</th>
+        <th>Nota 2</th>
+        <th>Media</th>
+    </tr>
+    </thead>
+    <tbody id="listaAlunos">
+
+    </tbody>
+</table>
+
+
+<script>
+    document.getElementById("btnListar").addEventListener("click", async () => {
+        const response = await fetch("/api/v1/alunos");
+        const lista = document.getElementById("listaAlunos");
+        lista.innerHTML = "";
+
+        if (response.ok) {
+            const alunos = await response.json();
+            alunos.forEach(aluno => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${aluno.id}</td>
+                  <td>${aluno.usuario}</td>
+                  <td>${aluno.nome}</td>
+                  <td>${aluno.email}</td>
+                  <td>${aluno.telefone}</td>
+                  <td>${aluno.curso}</td>
+                  <td>${aluno.disciplina}</td>
+                  <td>${aluno.status}</td>
+                  <td>${aluno.nota1}</td>
+                  <td>${aluno.nota2}</td>
+                  <td>${aluno.media}</td>
+                `;
+                lista.appendChild(row);
+            });
+        } else {
+            alert("Erro ao carregar usuários.");
+        }
+    });
+</script>
+</body>
+</html>

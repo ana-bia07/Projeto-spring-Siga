@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inserir</title>
+    <style>
+        body{
+            font-family: monospace, sans-serif;
+            margin: 20px;
+        }
+        nav{
+            background-color: #FF0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a{
+            text-decoration: none;
+            color:  #F3F3F3;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #000000
+        }
+
+        select#status{
+            height: 25px;
+            margin-block-end: 11px;
+        }
+
+        .formulario{
+            height: 30%;
+            width: 100%;
+            display: grid;
+            text-align: justify;
+        }
+        label{
+            width: 100%;
+            display: block;
+        }
+        input{
+            width: 100%;
+        }
+        nav{
+            background-color: #FF0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a{
+            text-decoration: none;
+            color:  #F3F3F3;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #000000
+        }
+        label{
+            width: 100%;
+            display: grid;
+            text-align: start;
+        }
+        input{
+            width: 100%;
+        }
+    </style>
+</head>
+<nav>
+    <a href="inserir.html"> Inserir</a>
+    <a href="consultar.html"> Consultar</a>
+    <a href="editar.html"> Editar</a>
+    <a href="deletar.html"> Deletar</a>
+</nav>
+<body>
+<h1> Inserir Aluno </h1>
+<div >
+    <form class="formulario" id="inserirForm">
+        <label> Usuario: <input type="text" id="usuario" required></label><br>
+        <label> Senha: <input type="password" id="password" required></label><br>
+        <label> Nome: <input type="text" id="nome" required></label><br>
+        <label> Email: <input type="email" id="email" required></label><br>
+        <label> Curso: <input type="text" id="curso" required></label><br>
+        <label> Telefone: <input type="text" id="telefone" required></label><br>
+        <label> Disciplina: <input type="text" id="disciplina" required></label><br>
+        <label for="status">Status:</label>
+        <select id="status">
+            <option value="Cursando">Cursando</option>
+            <option value="Formado">Formado</option>
+            <option value="Trancado">Trancado</option>
+        </select>
+        <label> Nota 1: <input type="number" id="nota1" required></label><br>
+        <label> Nota 2: <input type="number" id="nota2" required></label><br>
+        <button type="submit"> INSERIR </button>
+    </form>
+</div>
+<script>
+    document.getElementById("inserirForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const usuario = document.getElementById("usuario").value;
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const curso = document.getElementById("curso").value;
+        const telefone = document.getElementById("telefone").value;
+        const status = document.getElementById("status").value;
+        const disciplina = document.getElementById("disciplina").value;
+        const nota1 = document.getElementById("nota1").value;
+        const nota2 = document.getElementById("nota2").value;
+
+
+
+        const aluno = {usuario, password, nome, email, telefone, curso, disciplina, status, nota1, nota2};
+
+        const response = await fetch("api/v1/alunos", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(aluno)
+        });
+
+        if(response.ok){
+            alert("Aluno Inserido com Sucesso!");
+            document.getElementById("inserirForm").reset();
+        }else{
+            alert("Erro ao Inserir Usuarios");
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

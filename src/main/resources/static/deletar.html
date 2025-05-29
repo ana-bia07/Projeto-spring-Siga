@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar</title>
+    <style>
+        body{
+            font-family: monospace, sans-serif;
+            margin: 20px;
+        }
+        nav{
+            background-color: #FF0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a{
+            text-decoration: none;
+            color:  #F3F3F3;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #000000
+        }
+
+        select#status{
+            height: 25px;
+            margin-block-end: 11px;
+        }
+
+        .formulario{
+            height: 30%;
+            width: 100%;
+            display: grid;
+            text-align: justify;
+        }
+        label{
+            width: 100%;
+            display: block;
+        }
+        input{
+            width: 100%;
+        }
+        nav{
+            background-color: #FF0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a{
+            text-decoration: none;
+            color:  #F3F3F3;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #000000
+        }
+        label{
+            width: 100%;
+            display: grid;
+            text-align: start;
+        }
+        input{
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<nav>
+    <a href="inserir.html"> Inserir</a>
+    <a href="consultar.html"> Consultar</a>
+    <a href="editar.html"> Editar</a>
+    <a href="deletar.html"> Deletar</a>
+</nav>
+<h1> Deletar Aluno</h1>
+<form id="deletarForm">
+    <label>ID do Usuario: <input type="number" id="id" required></label><br><br>
+    <button type="submit">DELETAR</button>
+</form>
+
+<script>
+    document.getElementById("deletarForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = document.getElementById("id").value;
+
+        const response = await fetch(`/api/v1/alunos/${id}`, {
+            method: "DELETE"
+        });
+
+        if(response.status === 204){
+            alert("Usuario Deletado com Sucesso!");
+            document.getElementById("deletarForm").reset();
+        }
+        else{
+            alert("Erro ao Deletar Aluno");
+        }
+    });
+</script>
+
+</body>
+
+</html>
